@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: secure-redactor
+        name: Secure Redactor (Local Secrets Check)
+        entry: python3 secure_redactor.py
+        language: system
+        types: [text]
+        # Only warn, don't auto-modify unless explicitly designed to do so safely in place
+        # pass_filenames: true (default)
+
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.14.2
+    hooks:
+      - id: ggshield
+        language_version: python3
+        stages: [commit]
